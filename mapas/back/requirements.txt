@@ -1,0 +1,9 @@
+fastapi
+pydantic
+aiofiles
+
+sqlalchemy
+
+uvicorn
+gunicorn
+

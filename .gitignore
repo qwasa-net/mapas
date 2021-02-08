@@ -1,0 +1,19 @@
+# meaningless stuff
+_kakas/
+
+# bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# dev database
+db.sqlite
+
+# IDE
+.vscode
+
+# python environment
+_env/
+
+# front build tools
+node_modules/

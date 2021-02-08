@@ -15,10 +15,9 @@ async def get_any_task():
     Get random ask from the database.
     """
 
-    mapa = db.Storage.get_mapa()
     geo = db.Storage.get_geo(geo_id=None)  # None -- get random
 
-    if not geo or not mapa:
+    if not geo:
         raise fastapi.HTTPException(status_code=404)
 
     data = {
@@ -26,11 +25,11 @@ async def get_any_task():
         "id": geo.id,
         "text": geo.name,
         "mapa": {
-            "path": mapa.path,
-            "id": mapa.id,
-            "w": mapa.w,
-            "h": mapa.h,
-            "projection": mapa.projection,
+            "path": geo.mapa.path,
+            "id": geo.mapa.id,
+            "w": geo.mapa.w,
+            "h": geo.mapa.h,
+            "projection": geo.mapa.projection,
         },
     }
 
@@ -45,14 +44,13 @@ async def check_answer(answer: schemas.Answer) -> schemas.Result:
     """
 
     geo = db.Storage.get_geo(geo_id=answer.task_id)
-    mapa = db.Storage.get_mapa(mapa_id=answer.mapa_id)
 
-    if not geo or not mapa:
+    if not geo:
         raise fastapi.HTTPException(status_code=404)
 
-    lng0, lat0 = mapa.project_lnglat(answer.x, answer.y)
+    lng0, lat0 = geo.project_lnglat(answer.x, answer.y)
     distance = geo.distance(lng0, lat0)
-    x, y = mapa.project_xy(geo)
+    x, y = geo.project_xy()
 
     data = {"rc": 0, "distance": distance, "x": x, "y": y}
 

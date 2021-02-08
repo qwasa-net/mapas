@@ -1,10 +1,10 @@
 """Storage (with some DB via SQLAlchemy)"""
 import random
-import typing
+from typing import Dict, Optional
 
 import sqlalchemy
 
-from models import Base, Geo, Mapa
+from models import Base, Geo
 
 
 class DBStorage:
@@ -18,7 +18,7 @@ class DBStorage:
         pass
 
     @classmethod
-    def connect(cls, url: str, args: typing.Dict = None):
+    def connect(cls, url: str, args: Dict = None):
         """Connect to DataBase"""
         cls.engine = sqlalchemy.create_engine(url, connect_args=args or {})
         cls.sessmaker = sqlalchemy.orm.sessionmaker(bind=cls.engine,
@@ -35,7 +35,7 @@ class DBStorage:
         cls._cache_geos_size = s.query(Geo).count()
 
     @classmethod
-    def get_geo(cls, geo_id: typing.Optional[int] = None) -> Geo:
+    def get_geo(cls, geo_id: Optional[int] = None) -> Optional[Geo]:
         """
         Get a Geo object by id, if geo_id is `None` -- get random object.
         Returns: Geo object or None if nothing found
@@ -53,32 +53,10 @@ class DBStorage:
         return geo
 
     @classmethod
-    def save_geo(cls, geo: Geo):
-        """Save Goe object."""
+    def save(cls, obj):
+        """Save DB object."""
         s = cls.sess or cls.sessmaker()
-        s.add(geo)
-        s.commit()
-
-    @classmethod
-    def get_mapa(cls, mapa_id: typing.Optional[int] = None) -> Mapa:
-        """
-        Get a Mapa object by id, if mapa_id is `None` -- get first one.
-        Returns: Mapa object or None if nothing found.
-        """
-
-        s = cls.sess or cls.sessmaker()
-
-        mapa = s.query(Mapa)
-        if mapa_id is not None:
-            mapa = mapa.filter(Mapa.id == mapa_id)
-
-        return mapa.first()
-
-    @classmethod
-    def save_mapa(cls, mapa: Mapa):
-        """Save Mapa object."""
-        s = cls.sess or cls.sessmaker()
-        s.add(mapa)
+        s.add(obj)
         s.commit()
 
     @classmethod

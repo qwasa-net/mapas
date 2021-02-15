@@ -1,5 +1,6 @@
 """demodb builder"""
-import logging
+import sys
+
 import db
 import models
 
@@ -8,7 +9,7 @@ def generate_cities():
     mapa_data = {
         "name": "world map (equirectangular)",
         "w": 2160, "h": 1080,
-        "path": "equirectangular.svg",
+        "path": "map-equirectangular.svg",
         "projection": 2,
         "type": 1
     }
@@ -29,7 +30,7 @@ def generate_testscreen(W=1280, H=720, N=5):
         "name": "testscreen",
         "w": W,
         "h": H,
-        "path": "testscreen.svg",
+        "path": "map-testscreen.svg",
         "projection": 1,
         "type": 2
     }
@@ -48,7 +49,8 @@ def generate_testscreen(W=1280, H=720, N=5):
 def main():
     """demodb builder"""
 
-    db.DBStorage.connect(url="sqlite:///./db.sqlite", args={"check_same_thread": False})
+    dbname = "sqlite:///./db.sqlite" if len(sys.argv) < 2 else sys.argv[1]
+    db.DBStorage.connect(url=dbname)
     db.DBStorage.create_tables()
     db.DBStorage.show_tables()
 

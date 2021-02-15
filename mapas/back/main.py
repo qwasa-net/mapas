@@ -1,4 +1,6 @@
 """Setup app, start server."""
+import os
+
 import fastapi
 from fastapi.staticfiles import StaticFiles
 
@@ -14,7 +16,8 @@ mapapp.include_router(api.router)
 
 # add static files (in dev/test mode)
 if static_path := settings.get("serve_static"):
-    mapapp.mount("/static", StaticFiles(directory=static_path), name="static")
+    mount_path = "/" + os.path.basename(os.path.normpath(static_path))
+    mapapp.mount(mount_path, StaticFiles(directory=static_path), name="static")
 
 # init database connection
 if database_url := settings.get("database_url"):

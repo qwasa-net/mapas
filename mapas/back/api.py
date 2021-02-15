@@ -5,8 +5,11 @@ import fastapi
 
 import db
 import schemas
+import settings
 
 router = fastapi.APIRouter()
+
+media_base = settings.get("media_base", "media/")
 
 
 @router.get("/task", response_model=schemas.Task)
@@ -25,7 +28,7 @@ async def get_any_task():
         "id": geo.id,
         "text": geo.name,
         "mapa": {
-            "path": geo.mapa.path,
+            "path": media_base + geo.mapa.path,
             "id": geo.mapa.id,
             "w": geo.mapa.w,
             "h": geo.mapa.h,

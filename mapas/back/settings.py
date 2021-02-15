@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     listen_port: int = 8000
     verbose: bool = True
     serve_static: typing.Optional[str] = None
+    media_base: str = "media/"
 
     class Config:
         """
@@ -30,5 +31,5 @@ settings = Settings()
 
 @cache
 def get(name, fb=None):
-    """Get settings"""
+    """Get settings or return fallback value."""
     return settings.__dict__.get(name, fb)

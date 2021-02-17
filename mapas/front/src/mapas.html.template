@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tlh">
+
+<head>
+    <meta charset="utf-8">
+    <title>mapas</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fafafa">
+    <style origin-href="mapas.min.css">
+    $py(mapas_css=open("www/mapas.min.css").read())$(mapas_css)
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="upper">
+            <button id="send">Go!</button>
+            <button id="next">NEXT</button>
+        </div>
+        <embed id="canvas" type="image/svg+xml">
+        <div id="downer">
+            <p id="answer"></p>
+            <p id="task"></p>
+        </div>
+        <p id="state"></p>
+    </div>
+
+    <script origin-src="svg-pan-zoom.min.js">
+    $py(svgpanzoom_js=open("www/svg-pan-zoom.min.js").read())$(svgpanzoom_js)
+    </script>
+
+    <script origin-src="mapas.min.js">
+    $py(mapas_js=open("www/mapas.min.js").read())$(mapas_js)
+    </script>
+
+</body>
+
+</html>

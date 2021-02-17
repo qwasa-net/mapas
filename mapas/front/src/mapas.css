@@ -1,0 +1,164 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  overflow: hidden;
+}
+
+div#container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #f0f0f0;
+  display: flex;
+}
+
+div#container #canvas {
+  justify-self: stretch;
+  align-self: stretch;
+  width: 100%;
+  z-index: 99;
+  /* position: absolute; */
+  display: block;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  background-color: #f9f9f9;
+}
+
+div#container #upper {
+  z-index: 101;
+}
+
+div#container #downer {
+  z-index: 101;
+  position: absolute;
+  /* display: flex; */
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+div#container #task {
+  width: 100%;
+  padding: 1vh 5vw;
+  text-align: center;
+  font-size: 2.25rem;
+  line-height: 2.25rem;
+  font-weight: bold;
+  white-space: pre-line;
+  background-color: rgba(220, 220, 220, 0.75);
+}
+
+div#container #answer {
+  padding: 1vh 5vw;
+  margin: 0 0 0.25rem 0;
+  text-align: center;
+  font-size: 1.85rem;
+  line-height: 1.85rem;
+  font-weight: bold;
+  white-space: pre-line;
+  background-color: rgba(220, 220, 220, 0.75);
+}
+
+div#container #answer.good {
+  background-color: rgba(255, 190, 190, 0.75);
+}
+
+div#container #answer.bad {
+  background-color: rgba(220, 255, 220, 0.75);
+}
+
+div#container button {
+  text-align: center;
+  padding: 0.1em 1em;
+  box-shadow: none;
+  font-size: 1.85rem;
+  border-radius: 0.5rem;
+}
+
+div#container button#send {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: coral;
+  border: 1px solid salmon;
+  color: black;
+}
+
+div#container button#next {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: gainsboro;
+  border: 1px solid lightslategray;
+  color: slategray;
+}
+
+div#container .pointer {
+  width: 2.5rem;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 102;
+  /* background-color: brown; */
+  transition: top 0.33s ease, left 0.33s ease;
+}
+
+div#container .pointer:hover {
+  filter: saturate(1.5);
+}
+
+div#container .pointer svg {
+  width: 100%;
+  height: auto;
+}
+
+div#container .pointer svg .balls {
+  fill: maroon;
+  stroke: salmon;
+  stroke-width: 2px;
+}
+
+div#container .pointer svg .ballb {
+  fill: rgba(220, 220, 220, 0.5);
+  stroke: gainsboro;
+}
+
+div#container .pointer.helper {
+  transition: top 0.95s ease, left 0.95s ease;
+}
+
+div#container .pointer.helper svg .balls {
+  fill: darkgreen;
+  stroke: darkseagreen;
+}
+
+div#container .pointer.helper svg .ballb {
+  fill: lightgoldenrodyellow;
+  stroke: lightyellow;
+}
+
+
+div#container #state {
+  position: absolute;
+  left: 0;
+  bottom: 5rem;
+  font-size: 1rem;
+  background-color: burlywood;
+  z-index: 9999;
+}
+
+.hidden {
+  display: none;
+}

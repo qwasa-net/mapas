@@ -1,0 +1,23 @@
+{
+    "toplevel": false,
+    "keep_classnames": true,
+    "keep_fnames": true,
+    "compress": {
+        "dead_code": true,
+        "drop_console": true,
+        "passes": 1,
+        "evaluate": false,
+        "inline": false,
+        "conditionals": false,
+        "comparisons": false,
+        "keep_classnames": true,
+        "keep_fnames": true,
+        "unused": false,
+        "warnings": true,
+        "collapse_vars": false,
+        "reduce_vars": false
+    },
+    "output": {
+        "beautify": false
+    }
+}

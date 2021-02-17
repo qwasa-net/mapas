@@ -23,7 +23,7 @@ env:
 
 start:
 	cd mapas/back/;\
-	MAPA_SERVE_STATIC='$(HOME_PATH)/mapas/front/src/' \
+	MAPA_SERVE_STATIC='$(HOME_PATH)/mapas/front/www/' \
 	$(PYTHON) ./main.py
 
 
@@ -32,12 +32,17 @@ lint:
 	'$(ENV_PATH)/bin/flake8' mapas/back/
 
 
-build:
+build: build_front
 	#
 
+
+build_front:
+	cd '$(HOME_PATH)mapas/front/'; \
+	make build EXPANDER='$(ENV_PATH)/bin/expander.py -f'
 
 demodb:
-	#
+	cd mapas/back/;\
+	$(PYTHON) ../tools/demodb.py "sqlite:///$(HOME_PATH)/db.sqlite"
 
 
 tests:

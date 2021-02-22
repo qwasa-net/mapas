@@ -46,7 +46,8 @@ class DBStorage:
         if not geo_id:
             if not cls._cache_geos_size:
                 cls.cache_geos_size()
-            geo_id = random.randrange(1, cls._cache_geos_size + 1)
+            if cls._cache_geos_size > 0:
+                geo_id = random.randrange(1, cls._cache_geos_size + 1)
 
         geo = s.query(Geo).filter(Geo.id == geo_id).first()
 

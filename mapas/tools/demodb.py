@@ -6,6 +6,7 @@ import models
 
 
 def generate_cities():
+    """Demo cities."""
     mapa_data = {
         "name": "world map (equirectangular)",
         "w": 2160, "h": 1080,
@@ -26,6 +27,7 @@ def generate_cities():
 
 
 def generate_testscreen(W=1280, H=720, N=5):
+    """Demo points."""
     mapa_data = {
         "name": "testscreen",
         "w": W,

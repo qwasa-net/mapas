@@ -11,6 +11,7 @@ PYTHON_GLOBAL = python3
 PIP = '$(ENV_PATH)/bin/pip'
 PYTHON = '$(ENV_PATH)/bin/python'
 UVICORN = '$(ENV_PATH)/bin/uvicorn'
+PYTEST = '$(ENV_PATH)/bin/pytest'
 
 
 tea: env clean build lint tests start
@@ -46,8 +47,9 @@ demodb:
 
 
 tests:
-	#
-
+	cd mapas/back/;\
+	MAPA_DATABASE_URL='sqlite:///:memory:' \
+	$(PYTEST) -v -s
 
 clean:
 	find '$(HOME_PATH)mapas/back/' -iname '*.pyc' -print -delete

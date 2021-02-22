@@ -1,5 +1,6 @@
 """pydantic schemas."""
 from typing import Optional
+
 import pydantic
 
 
@@ -38,7 +39,6 @@ class Answer(pydantic.BaseModel):
 
     x: float
     y: float
-    mapa_id: int
     task_id: int
 
 

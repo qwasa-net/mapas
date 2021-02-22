@@ -28,8 +28,8 @@ class Geo(Base):
 
     def project_lnglat(self, x: float = None, y: float = None) -> (float, float):
         """Calculate geo coordinates from the point on the canvas (x,y)."""
-        return self.mapa.project_xy(x if x is not None else self.lng,
-                                    y if y is not None else self.lat)
+        return self.mapa.project_lnglat(x if x is not None else self.lng,
+                                        y if y is not None else self.lat)
 
     def distance(self, lng: float, lat: float) -> float:
         """Get distanse for some (lng,lat) point"""
@@ -102,8 +102,8 @@ class Mapa(Base):
         raise Exception("unknown projection type!")
 
     def distance(self,
-                 lat1: float, lng1: float,
-                 lat2: float, lng2: float,
+                 lng1: float, lat1: float,
+                 lng2: float, lat2: float,
                  radius: float = 6371) -> float:
         """
         Calculate the great circle distance between two points on the earth.
@@ -115,7 +115,7 @@ class Mapa(Base):
         """
 
         if self.type == Mapa.CANVAS:
-            return math.sqrt((lat1 - lat2)**2 + (lng1 - lng2)**2)
+            return math.sqrt((lng1 - lng2)**2 + (lat1 - lat2)**2)
 
         if self.type == Mapa.WORLDMAP:
             # convert decimal degrees to radians

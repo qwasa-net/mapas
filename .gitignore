@@ -1,10 +1,12 @@
 # meaningless stuff
 _kakas/
+_data/
 
 # bytecode
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
 
 # dev database
 db.sqlite

@@ -55,6 +55,7 @@ async def check_answer(answer: schemas.Answer) -> schemas.Result:
     distance = geo.distance(lng0, lat0)
     x, y = geo.project_xy()
 
-    data = {"rc": 0, "distance": distance, "x": x, "y": y}
+    score = 1 if distance < 200 else 0
+    data = {"rc": 0, "score": score, "distance": distance, "x": x, "y": y}
 
     return data

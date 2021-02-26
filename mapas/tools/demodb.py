@@ -3,6 +3,7 @@ import sys
 
 import db
 import models
+import settings
 
 
 def generate_cities():
@@ -51,7 +52,10 @@ def generate_testscreen(W=1280, H=720, N=5):
 def main():
     """demodb builder"""
 
-    dbname = "sqlite:///./db.sqlite" if len(sys.argv) < 2 else sys.argv[1]
+    dbname = (settings.get("database_url")
+              or (len(sys.argv) < 2 and sys.argv[1])
+              or "sqlite:///./db.sqlite")
+
     db.DBStorage.connect(url=dbname)
     db.DBStorage.create_tables()
     db.DBStorage.show_tables()
@@ -69,7 +73,6 @@ def main():
     for d in geo_data:
         geo = models.Geo(name=d['name'], lat=d["lat"], lng=d["lng"], mapa=mapa)
         db.DBStorage.save(geo)
-
 
 if __name__ == "__main__":
     main()

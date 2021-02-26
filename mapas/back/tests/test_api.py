@@ -78,3 +78,14 @@ def test_post_answer_invalid():
     """Test POST /answer (invalid)"""
     rsp = client.post("/answer")
     assert rsp.status_code == 422
+
+
+def test_read_all():
+    """Test GET /task (get all tasks)"""
+    task_ids = set()
+    while len(task_ids) < N:
+        rsp = client.get("/task")
+        assert rsp.status_code == 200
+        data = rsp.json()
+        assert 'id' in data
+        task_ids.add(data.get('id'))

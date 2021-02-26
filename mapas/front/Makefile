@@ -1,6 +1,8 @@
 EXPANDER ?= cat
 
+
 build: install_tools www/index.html
+
 
 install_tools: node_modules/.bin
 node_modules/.bin:
@@ -28,6 +30,7 @@ www/svg-pan-zoom.min.js: vendor/svg-pan-zoom-master/dist/svg-pan-zoom.min.js
 
 www:
 	mkdir -pv www
+
 
 www/media:
 	cp -rv media www

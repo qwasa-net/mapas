@@ -19,3 +19,6 @@ _env/
 
 # front build tools
 node_modules/
+
+#
+mapas/front/vendor/svg-pan-zoom-master/

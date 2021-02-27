@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     Application Settings
     """
 
-    database_url: str = "sqlite:///./../../db.sqlite"
+    database_url: str = "sqlite:///db.sqlite"
     listen_host: str = "127.0.0.1"
     listen_port: int = 8000
     verbose: bool = True

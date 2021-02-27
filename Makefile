@@ -7,11 +7,13 @@ HOME_PATH ?= $(MAKEFILE_DIR)
 ENV_NAME ?= _env
 ENV_PATH ?= $(abspath $(HOME_PATH)/$(ENV_NAME))
 
-PYTHON_GLOBAL = python3
+PYTHON_GLOBAL ?= python3
 PIP = '$(ENV_PATH)/bin/pip'
 PYTHON = '$(ENV_PATH)/bin/python'
 UVICORN = '$(ENV_PATH)/bin/uvicorn'
 PYTEST = '$(ENV_PATH)/bin/pytest'
+
+DOCKER_BIN ?= docker
 
 
 tea: env clean build lint tests start
@@ -23,8 +25,9 @@ env:
 
 
 start:
-	cd mapas/back/;\
+	cd mapas/back/; \
 	MAPA_SERVE_STATIC='$(HOME_PATH)/mapas/front/www/' \
+	MAPA_DATABASE_URL='sqlite:///$(HOME_PATH)/db.sqlite' \
 	$(PYTHON) ./main.py
 
 
@@ -46,7 +49,6 @@ demodb:
 	MAPA_DATABASE_URL='sqlite:///$(HOME_PATH)/db.sqlite' \
 	$(PYTHON) ../tools/demodb.py
 
-
 citydb: GEONAMES_SOURCE ?= https://download.geonames.org/export/dump/cities15000.zip
 citydb: GEONAMES_FILEZIP ?= "$(HOME_PATH)/_data/cities15000.zip"
 citydb: GEONAMES_FILE ?= "$(HOME_PATH)/_data/cities15000.txt"
@@ -65,8 +67,29 @@ citydb:
 	$(PYTHON) ../tools/citydb.py "$(GEONAMES_FILE)" "$(GEONAMES_COUNTRY_FILE)"
 
 
+container_build:
+	"$(DOCKER_BIN)" build \
+	--file mapas.Dockerfile \
+	--tag mapas \
+	--force-rm \
+	"$(HOME_PATH)"
+
+
+container_run: container_stop
+	"$(DOCKER_BIN)" run \
+	--publish 8000:8000 \
+	--tty --interactive \
+	--rm --replace \
+	--name mapas \
+	mapas
+
+
+container_stop:
+	-"$(DOCKER_BIN)" stop -t 1 mapas
+
+
 tests:
-	cd mapas/back/;\
+	cd mapas/back/; \
 	MAPA_DATABASE_URL='sqlite:///:memory:' \
 	$(PYTEST) -v -s --cache-clear .
 

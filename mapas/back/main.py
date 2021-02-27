@@ -29,8 +29,8 @@ def main():
 
     uvicorn.run(
         "main:mapapp",
-        host=settings.get("listen_host") or "127.0.0.1",
-        port=settings.get("listen_port") or 8000,
+        host=settings.get("listen_host", "127.0.0.1"),
+        port=settings.get("listen_port", 8000),
         reload=True,
         debug=True,
         log_level="debug",

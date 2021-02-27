@@ -26,8 +26,8 @@ env:
 
 start:
 	cd mapas/back/; \
-	MAPA_SERVE_STATIC='$(HOME_PATH)/mapas/front/www/' \
-	MAPA_DATABASE_URL='sqlite:///$(HOME_PATH)/db.sqlite' \
+	MAPA_SERVE_STATIC="$(HOME_PATH)/mapas/front/www/" \
+	MAPA_DATABASE_URL="$${MAPA_DATABASE_URL:-sqlite:///$(HOME_PATH)/db.sqlite}" \
 	$(PYTHON) ./main.py
 
 

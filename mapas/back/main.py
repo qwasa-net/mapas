@@ -17,7 +17,13 @@ mapapp.include_router(api.router)
 # add static files (in dev/test mode)
 if static_path := settings.get("serve_static"):
     mount_path = "/" + os.path.basename(os.path.normpath(static_path))
-    mapapp.mount(mount_path, StaticFiles(directory=static_path), name="static")
+    mapapp.mount(mount_path, StaticFiles(directory=static_path, html=True), name="static")
+
+# handle index (in dev/test mode)
+if redirect_index := settings.get("redirect_index"):
+    mapapp.get("/")(
+        lambda: fastapi.responses.RedirectResponse(redirect_index, status_code=301)
+    )
 
 # init database connection
 if database_url := settings.get("database_url"):

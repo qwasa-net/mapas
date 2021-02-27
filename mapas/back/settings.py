@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     verbose: bool = True
     serve_static: typing.Optional[str] = None
     media_base: str = "media/"
+    api_prefix: str = "/api"
+    redirect_index: str = "www/index.html"
 
     class Config:
         """

@@ -30,7 +30,7 @@ def test_read_index():
 
 def test_read_task():
     """Test GET /task (any random task)"""
-    rsp = client.get("/task")
+    rsp = client.get("/api/task")
     assert rsp.status_code == 200
     data = rsp.json()
     assert 'id' in data
@@ -47,7 +47,7 @@ def test_get_test_post_answer():
     task, geo = test_read_task()
     x, y = geo.project_xy()
     answer = {"task_id": task.get('id'), "mapa_id": 0, "x": x, "y": y}
-    rsp = client.post("/answer", json=answer)
+    rsp = client.post("/api/answer", json=answer)
     assert rsp.status_code == 200
     data = rsp.json()
     assert 'score' in data
@@ -59,7 +59,7 @@ def test_get_test_post_answer_offset():
     """Test GET /task and POST /answer"""
     # use geo.id=(0,0); post answer=(1,1)
     answer = {"task_id": 1, "x": 1, "y": 1}
-    rsp = client.post("/answer", json=answer)
+    rsp = client.post("/api/answer", json=answer)
     assert rsp.status_code == 200
     data = rsp.json()
     assert 'score' in data
@@ -70,13 +70,13 @@ def test_get_test_post_answer_offset():
 def test_post_answer_badids():
     """Test POST /answer (bad ids)"""
     answer = {"task_id": -1, "x": 0.33, "y": 0.25}
-    rsp = client.post("/answer", json=answer)
+    rsp = client.post("/api/answer", json=answer)
     assert rsp.status_code == 404
 
 
 def test_post_answer_invalid():
     """Test POST /answer (invalid)"""
-    rsp = client.post("/answer")
+    rsp = client.post("/api/answer")
     assert rsp.status_code == 422
 
 
@@ -84,7 +84,7 @@ def test_read_all():
     """Test GET /task (get all tasks)"""
     task_ids = set()
     while len(task_ids) < N:
-        rsp = client.get("/task")
+        rsp = client.get("/api/task")
         assert rsp.status_code == 200
         data = rsp.json()
         assert 'id' in data

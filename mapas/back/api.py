@@ -7,7 +7,7 @@ import db
 import schemas
 import settings
 
-router = fastapi.APIRouter()
+router = fastapi.APIRouter(prefix=settings.get("api_prefix"))
 
 media_base = settings.get("media_base", "media/")
 

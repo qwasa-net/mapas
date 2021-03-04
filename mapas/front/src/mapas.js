@@ -80,7 +80,7 @@ const app = {
             credentials: 'same-origin',
         };
 
-        fetch('/task', req)
+        fetch('/api/task', req)
             .then((rsp) => rsp.json())
             .then((data) => {
                 if (data && data.id) {
@@ -138,7 +138,7 @@ const app = {
             body: JSON.stringify(data),
         };
 
-        fetch('/answer', req)
+        fetch('/api/answer', req)
             .then((rsp) => {
                 rsp.json().then((data) => {
                     this.task.answer = data;
@@ -266,6 +266,8 @@ const app = {
 
                 this.els.answer.innerText = '';
                 this.els.answer.classList.add('hidden');
+                this.els.answer.classList.remove('good');
+                this.els.answer.classList.remove('bad');
 
                 this.els.task.innerText = '';
                 this.els.task.classList.add('hidden');
@@ -319,6 +321,13 @@ const app = {
                 this.els.answer.classList.remove('hidden');
                 this.els.next.classList.remove('hidden');
 
+                const score = Number(data.score);
+                if (score === 1) {
+                    this.els.answer.classList.add('good');
+                } else if (score === 0) {
+                    this.els.answer.classList.add('bad');
+                }
+
                 let screenxy = this.to_canvas_point(data.x, data.y);
                 console.log('screenxy', screenxy);
                 if (screenxy[0] < 0 || screenxy[1] < 0 ||
@@ -364,7 +373,7 @@ function get_pointer(parent, klass, handler) {
             if (klass) {
                 this.el.classList.add(klass);
             }
-            const svg = this.draw();
+            const svg = this.draw(klass);
             this.el.appendChild(svg);
             return this.el;
         },
@@ -419,15 +428,8 @@ function get_pointer(parent, klass, handler) {
             ball2.setAttributeNS(null, 'cx', 50);
             ball2.setAttributeNS(null, 'cy', 50);
             ball2.setAttributeNS(null, 'r', 20);
-            // let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            // path.setAttributeNS(null, 'id', 'path');
-            // eslint-disable-next-line max-len
-            // path.setAttributeNS(null, 'd', 'M 81.343512,150.40613 C 75.221902,130.03091 71.744967,121.61565 65.876218,112.97047 62.13675,107.46191 58.925187,104.12166 52.434733,98.990397 L 51.837329,98.5181 52.042406,95.211999 c 0.797896,-12.863872 2.709559,-20.574218 6.507255,-26.245837 3.957759,-5.910664 10.271252,-9.349898 22.047988,-12.0105 l 2.802595,-0.633162 1.560578,0.624503 c 0.858324,0.343483 3.855958,1.411548 6.661422,2.373486 5.797512,1.987858 7.738666,2.78662 9.935056,4.088168 7.10716,4.211581 10.4098,12.556169 11.78933,29.787308 0.45241,5.650904 0.54172,5.140528 -1.17935,6.739692 -2.0027,1.860843 -5.38888,5.488983 -7.66933,8.217353 -10.465702,12.52138 -17.433726,27.17957 -21.191359,44.57893 -0.268535,1.24348 -0.505213,2.27692 -0.525929,2.29655 -0.02079,0.0196 -0.667423,-2.06043 -1.437139,-4.62236 z');
-            // ball.setAttributeNS(null, 'fill', 'black');
-            // ball.setAttributeNS(null, 'stroke', 'none');
             svg.appendChild(ball);
             svg.appendChild(ball2);
-            // svg.appendChild(path);
             return svg;
         },
 

@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>mapas</title>
+    <title>mapas tktk</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#fafafa">
+    <link rel="icon" type="image/svg+xml" href="media/pointer.svg">
     <style origin-href="mapas.min.css">
     $py(mapas_css=open("www/mapas.min.css").read())$(mapas_css)
     </style>

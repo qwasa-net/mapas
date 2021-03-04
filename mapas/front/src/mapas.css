@@ -71,37 +71,53 @@ div#container #answer {
 }
 
 div#container #answer.good {
-  background-color: rgba(255, 190, 190, 0.75);
+  background-color: rgba(220, 255, 220, 0.75);
 }
 
 div#container #answer.bad {
-  background-color: rgba(220, 255, 220, 0.75);
+  background-color: rgba(255, 190, 190, 0.75);
 }
 
 div#container button {
   text-align: center;
   padding: 0.1em 1em;
   box-shadow: none;
-  font-size: 1.85rem;
+  font-size: 2rem;
   border-radius: 0.5rem;
 }
 
 div#container button#send {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 3rem;
   background-color: coral;
   border: 1px solid salmon;
   color: black;
+  transition: top 0.5s ease, right 0.5s ease;
+}
+
+div#container button#send.hidden {
+  top: -3rem;
+  right: -15rem;
+  visibility: hidden;
+  display: block;
 }
 
 div#container button#next {
   position: absolute;
   top: 1rem;
-  left: 1rem;
-  background-color: gainsboro;
+  right: 3rem;
+  color: gainsboro;
   border: 1px solid lightslategray;
-  color: slategray;
+  background-color: slategray;
+  transition: top 0.5s ease, right 0.5s ease;
+}
+
+div#container button#send.hidden {
+  top: -3rem;
+  right: -15rem;
+  visibility: hidden;
+  display: block;
 }
 
 div#container .pointer {
@@ -125,13 +141,13 @@ div#container .pointer svg {
 }
 
 div#container .pointer svg .balls {
-  fill: maroon;
+  fill: #900000;
   stroke: salmon;
   stroke-width: 2px;
 }
 
 div#container .pointer svg .ballb {
-  fill: rgba(220, 220, 220, 0.5);
+  fill: rgba(220, 220, 200, 0.66);
   stroke: gainsboro;
 }
 
@@ -145,17 +161,18 @@ div#container .pointer.helper svg .balls {
 }
 
 div#container .pointer.helper svg .ballb {
-  fill: lightgoldenrodyellow;
-  stroke: lightyellow;
+  fill: #fafac9;
+  stroke: yellow;
 }
-
 
 div#container #state {
   position: absolute;
-  left: 0;
-  bottom: 5rem;
+  left: 0.2rem;
+  bottom: 0.2rem;
   font-size: 1rem;
-  background-color: burlywood;
+  padding: 0 0.5rem;
+  background-color: whitesmoke;
+  color: lightslategray;
   z-index: 9999;
 }
 

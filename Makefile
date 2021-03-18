@@ -16,7 +16,7 @@ PYTEST = '$(ENV_PATH)/bin/pytest'
 DOCKER_BIN ?= docker
 
 
-tea: env clean build lint tests start
+tea: clean env build lint tests demodb start
 
 
 env:
@@ -44,10 +44,15 @@ build_front:
 	make build EXPANDER='$(ENV_PATH)/bin/expander.py -f'
 
 
-demodb:
+testdb:
 	cd mapas/back/; \
 	MAPA_DATABASE_URL='sqlite:///$(HOME_PATH)/db.sqlite' \
 	$(PYTHON) ../tools/demodb.py
+
+
+demodb:
+	cp -v demodb.sqlite db.sqlite
+
 
 citydb: GEONAMES_SOURCE ?= https://download.geonames.org/export/dump/cities15000.zip
 citydb: GEONAMES_FILEZIP ?= "$(HOME_PATH)/_data/cities15000.zip"

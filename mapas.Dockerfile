@@ -2,7 +2,8 @@ FROM docker.io/library/python:3-slim
 
 # get build tools, create user
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends make wget unzip libsqlite3-0 sqlite3 && \
+    apt-get install -y --no-install-recommends \
+    make wget unzip libsqlite3-0 sqlite3 && \
     groupadd mapas && \
     useradd --gid mapas --home-dir /mapas --create-home --shell /bin/false mapas
 
@@ -14,6 +15,8 @@ WORKDIR /mapas/
 ENV PYTHONPATH=.
 ENV MAPA_DATABASE_URL='sqlite:////mapas/demodb.sqlite'
 ENV MAPA_LISTEN_HOST='0.0.0.0'
+ENV MAPA_LISTEN_PORT='8000'
+ENV MAPA_API_PREFIX='/api'
 
 # copy src
 COPY --chown=mapas:mapas ./Makefile ./demodb.sqlite /mapas/

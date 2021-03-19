@@ -1,0 +1,22 @@
+[Unit]
+Description=mapas.tktk.in (podman)
+After=nginx.service
+
+[Service]
+Restart=always
+RestartSec=10
+
+StandardOutput=file:/home/mapas.tktk.in/logs/mapas_stdout.log
+StandardError=file:/home/mapas.tktk.in/logs/mapas_stderr.log
+ExecStartPre=/usr/bin/chown -R mapas.tktk.in:mapas.tktk.in /home/mapas.tktk.in/logs/
+
+# 'loginctl enable-linger [USER...]' … If enabled for a specific user,
+# a user manager is spawned for the user at boot and kept around after logouts.
+# This allows users who are not logged in to run long-running services.
+ExecStartPre=/bin/loginctl enable-linger mapas.tktk.in
+
+ExecStart=sudo -u mapas.tktk.in /usr/bin/podman start -a mapas
+ExecStop=sudo -u mapas.tktk.in /usr/bin/podman stop -t 2 mapas
+
+[Install]
+WantedBy=default.target

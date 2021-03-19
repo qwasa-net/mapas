@@ -8,6 +8,7 @@ install_tools: node_modules/.bin
 node_modules/.bin:
 	npm install
 
+
 www/index.html: www www/media src/mapas.html.template www/mapas.min.css www/mapas.min.js www/svg-pan-zoom.min.js
 	$(EXPANDER) src/mapas.html.template > www/index.html
 
@@ -17,6 +18,7 @@ www/mapas.min.js: src/mapas.js
 	--config-file terser.json \
 	src/mapas.js \
 	--output www/mapas.min.js
+
 
 www/mapas.min.css: src/mapas.css
 	./node_modules/.bin/cleancss \

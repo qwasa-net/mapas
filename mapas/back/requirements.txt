@@ -14,4 +14,3 @@ pylint
 pytest
 requests
 
-pyexpander

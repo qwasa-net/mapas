@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <title>mapas tktk</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#fafafa">
+    <meta name="Description" content="mapas tktk">
     <link rel="icon" type="image/svg+xml" href="media/pointer.svg">
     <style origin-href="mapas.min.css">
-    $py(mapas_css=open("www/mapas.min.css").read())$(mapas_css)
+    <!--# @www/mapas.min.css -->
     </style>
 </head>
 
@@ -28,11 +28,11 @@
     </div>
 
     <script origin-src="svg-pan-zoom.min.js">
-    $py(svgpanzoom_js=open("www/svg-pan-zoom.min.js").read())$(svgpanzoom_js)
+    <!--# @www/svg-pan-zoom.min.js -->
     </script>
 
     <script origin-src="mapas.min.js">
-    $py(mapas_js=open("www/mapas.min.js").read())$(mapas_js)
+    <!--# @www/mapas.min.js -->
     </script>
 
 </body>

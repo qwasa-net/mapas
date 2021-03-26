@@ -37,15 +37,14 @@ start:  ## start local demo server ($MAPA_LISTEN_HOST:$MAPA_LISTEN_PORT, default
 	MAPA_DATABASE_URL="$${MAPA_DATABASE_URL:-sqlite:///$(HOME_PATH)/db.sqlite}" \
 	$(PYTHON) ./main.py
 
-build: build_front clean  ## build
+build: env build_front clean  ## build
 
 build_front:
 	cd '$(HOME_PATH)mapas/front/'; \
 	make \
 	--directory='$(HOME_PATH)mapas/front/' \
 	--file='$(HOME_PATH)mapas/front/Makefile' \
-	install_tools build \
-	EXPANDER='$(ENV_PATH)/bin/expander.py -f'
+	build_tools build
 
 lint:  ## run backend linters
 	'$(ENV_PATH)/bin/pylint' mapas/back/
